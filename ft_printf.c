@@ -1,65 +1,66 @@
-#include <stdio.h>
-#include "libft.h"
-#include <stdarg.h>
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sekhudol <sekhudol@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/24 23:04:07 by sekhudol          #+#    #+#             */
+/*   Updated: 2025/12/25 01:00:18 by sekhudol         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void ft_puthex(unsigned long n, int caps)
+#include "ft_printf.h"
+
+void	flag_swap(const char *str, va_list list_args, int *bytes)
 {
-    char *hex_digits = "0123456789abcdef";
-    char selected;
-    
-    if (n >= 16)
-        ft_puthex(n / 16, caps);
-    selected = hex_digits[n % 16];
-    if(caps)
-        selected = ft_toupper(selected);
-    ft_putchar_fd(selected,1);
+	if (*str == '%')
+		*bytes += print_chr('%');
+	if (*str == 'c')
+		*bytes += print_chr(va_arg(list_args, int));
+	else if (*str == 's')
+		*bytes += print_str(va_arg(list_args, char *));
+	else if (*str == 'i' || *str == 'd')
+		*bytes += print_int(va_arg(list_args, int));
+	else if (*str == 'u')
+		*bytes += print_uint(va_arg(list_args, unsigned int));
+	else if (*str == 'x')
+	{
+		*bytes += print_chr('x');
+		*bytes += print_hex(va_arg(list_args, int), 0);
+	}
+	else if (*str == 'X')
+	{
+		*bytes += print_chr('X');
+		*bytes += print_hex(va_arg(list_args, int), 1);
+	}
+	else if (*str == 'p')
+	{
+		*bytes += print_ptr((unsigned long) va_arg(list_args, void *));
+	}
 }
 
-int ft_printf(char *str, ...)
+int	ft_printf(const char *str, ...)
 {
-    va_list list_args;
-    va_start(list_args, str);    
+	va_list	list_args;
+	int		bytes;
 
-    while(*str){
-        if(*str != '%')
-            ft_putchar_fd(*str,1);
-        if(*str == '%'){
-            str++;
-            if(*str == '%')
-                ft_putchar_fd('%',1);
-            if(*str == 'c')
-                ft_putchar_fd(va_arg(list_args,int),1);
-            else if(*str == 's')
-                ft_putstr_fd(va_arg(list_args, char*),1);
-            else if(*str == 'i' || *str == 'd')
-                ft_putnbr_fd(va_arg(list_args, int),1);
-            else if(*str == 'u')
-                ft_putnbr_fd(va_arg(list_args,unsigned int),1);
-            else if(*str == 'x'){
-                ft_putchar_fd('x',1);
-                ft_puthex(va_arg(list_args,int),0);
-            }else if(*str == 'X'){
-                ft_putchar_fd('X',1);
-                ft_puthex(va_arg(list_args,int),1);
-            }else if(*str == 'p'){
-                ft_putstr_fd("0x", 1);
-                ft_puthex((unsigned long) va_arg(list_args,void *),0);
-            }
-        }
-        str++;
-    }
-
-    va_end(list_args);
-
-    return 0;
-}
-
-int main(void)
-{
-    char *str = "Hola";
-
-    ft_printf("%s -> %p\n",str, str);
-    printf("%s -> %p\n",str, str);
-
-    return 0;
+	bytes = 0;
+	va_start(list_args, str);
+	while (*str)
+	{
+		if (*str != '%')
+		{
+			ft_putchar_fd(*str, 1);
+			bytes++;
+		}
+		else
+		{
+			str++;
+			flag_swap(str, list_args, &bytes);
+		}
+		str++;
+	}
+	va_end(list_args);
+	return (bytes);
 }
