@@ -6,7 +6,7 @@
 /*   By: sekhudol <sekhudol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/25 00:28:28 by sekhudol          #+#    #+#             */
-/*   Updated: 2025/12/26 17:26:09 by sekhudol         ###   ########.fr       */
+/*   Updated: 2025/12/26 17:51:09 by sekhudol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ int	main(void)
 	int	x;
 
 	x = 888182345;
-	a = ft_printf(" %u ", -1);
-	b = printf(" %u ", -1);
+	a = ft_printf(" %i ", -1);
+	b = printf(" %i ", -1);
 	printf("mio:%d original:%d", a, b);
 	return (0);
 }
