@@ -6,13 +6,13 @@
 /*   By: sekhudol <sekhudol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 23:03:53 by sekhudol          #+#    #+#             */
-/*   Updated: 2025/12/25 00:04:20 by sekhudol         ###   ########.fr       */
+/*   Updated: 2025/12/25 01:25:27 by sekhudol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-int	print_hex(unsigned long n, int caps)
+int	print_hex(long n, int caps)
 {
 	char	*hex_digits;
 	char	selected;

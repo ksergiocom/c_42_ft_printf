@@ -1,7 +1,7 @@
 NAME = libftprintf.a
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g
 INCLUDES = -I./libft
 LIBFT = ./libft/libft.a
 
@@ -23,13 +23,14 @@ clean:
 	make -C ./libft clean
 	rm -f $(OBJS)
 
+
 fclean: clean
 	make -C ./libft fclean
 	rm -f $(NAME)
 
 re: fclean all
 
-test:
-	cc main.c libftprintf.a -I. -I./libft -L./libft -lft
+test: fclean all
+	cc -g main.c libftprintf.a -I. -I./libft -L./libft -lft
 	./a.out
 # 	rm ./a.out

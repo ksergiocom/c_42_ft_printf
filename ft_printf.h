@@ -6,7 +6,7 @@
 /*   By: sekhudol <sekhudol@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/24 23:05:58 by sekhudol          #+#    #+#             */
-/*   Updated: 2025/12/25 00:59:35 by sekhudol         ###   ########.fr       */
+/*   Updated: 2025/12/25 01:25:44 by sekhudol         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 
 # include "libft.h"
 
-int	print_hex(unsigned long n, int caps);
+int	print_hex(long n, int caps);
 int	print_ptr(unsigned long n);
 int	print_chr(char c);
 int	print_str(char *str);
